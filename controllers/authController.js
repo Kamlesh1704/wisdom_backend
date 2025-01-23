@@ -34,6 +34,9 @@ import { openDb } from "../config/database.js"
 export const register = async (req, res, next) => {
   const db = await openDb()
   const { username, password } = req.body;
+  if(!username || !password){
+    res.send("Provide all the necessary fields")
+  }
   const hashedPassword = await bcrypt.hash(password, 10);
   const selectUserQuery = `SELECT * FROM Users WHERE username = '${username}'`;
   const dbUser = await db.get(selectUserQuery);
