@@ -56,7 +56,7 @@ export const getCustomer = async (req, res, next) => {
   try {
     const customer = await db.get("SELECT * FROM Customers WHERE id = ?", req.params.id)
     if (!customer) return res.status(404).json({ message: "Customer not found" })
-    res.json(customer)
+    res.status(201).json(customer)
   } catch (error) {
     next(error)
   } finally {
@@ -76,7 +76,7 @@ export const updateCustomer = async (req, res, next) => {
     )
 
     const updatedCustomer = await db.get("SELECT * FROM Customers WHERE id = ?", req.params.id)
-    res.json(updatedCustomer)
+    res.status(201).json(updatedCustomer)
   } catch (error) {
       next(error)
   } finally {
